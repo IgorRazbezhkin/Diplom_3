@@ -2,7 +2,6 @@ import allure
 from urls import BASE_URL, LOGIN_PAGE_URL, ORDER_FEED_PAGE_URL
 from pages.main_functionality_page import MainFunctionalityPage
 from pages.personal_account_page import PersonalAccountPage
-from pages.base_pages import BasePage
 
 
 @allure.suite("Основная функциональность.")
@@ -16,23 +15,22 @@ class TestMainFunctionality:
         with allure.step("Инициализировать страницы."):
             main_page = MainFunctionalityPage(browser)
             account_page = PersonalAccountPage(browser)
-            base_page = BasePage(browser)
 
         with allure.step("Кликнуть по кнопке 'Личный кабинет'."):
             account_page.click_personal_account_button()
 
         with allure.step("Ожидать перехода на страницу личного кабинета."):
-            base_page.wait_for_url(LOGIN_PAGE_URL)
+            account_page.wait_for_url(LOGIN_PAGE_URL)
 
         with allure.step("Кликнуть по кнопке 'Конструктор'."):
             main_page.click_constructor()
 
         with allure.step("Ожидать перехода на главную страницу."):
-            base_page.wait_for_url(BASE_URL)
+            main_page.wait_for_url(BASE_URL)
 
         with allure.step("Проверить текущий URL."):
-            assert base_page.get_current_url() == BASE_URL, \
-                f"Ожидался URL: {BASE_URL}, Фактический URL: {base_page.get_current_url()}"
+            assert main_page.get_current_url() == BASE_URL, \
+                f"Ожидался URL: {BASE_URL}, Фактический URL: {main_page.get_current_url()}"
 
     @allure.title("Успешный переход на страницу 'Лента заказов'.")
     @allure.description("Тест для проверки перехода на страницу 'Лента заказов'.")
@@ -41,17 +39,16 @@ class TestMainFunctionality:
     def test_order_feed_navigation_success(self, browser):
         with allure.step("Инициализировать страницы."):
             main_page = MainFunctionalityPage(browser)
-            base_page = BasePage(browser)
 
         with allure.step("Кликнуть по кнопке 'Лента заказов'."):
             main_page.click_order_feed()
 
         with allure.step("Ожидать перехода на страницу ленты заказов."):
-            base_page.wait_for_url(ORDER_FEED_PAGE_URL)
+            main_page.wait_for_url(ORDER_FEED_PAGE_URL)
 
         with allure.step("Проверить текущий URL."):
-            assert base_page.get_current_url() == ORDER_FEED_PAGE_URL, \
-                f"Ожидался URL: {ORDER_FEED_PAGE_URL}, Фактический URL: {base_page.get_current_url()}"
+            assert main_page.get_current_url() == ORDER_FEED_PAGE_URL, \
+                f"Ожидался URL: {ORDER_FEED_PAGE_URL}, Фактический URL: {main_page.get_current_url()}"
 
     @allure.title("Успешное отображения модального окна с деталями ингредиента.")
     @allure.description("Тест для проверки открытия модального окна с деталями ингредиента.")

@@ -1,7 +1,6 @@
 import allure
 from urls import BASE_URL, LOGIN_PAGE_URL, ACCOUNT_ORDER_HISTORY_URL
 from pages.personal_account_page import PersonalAccountPage
-from pages.base_pages import BasePage
 
 
 @allure.suite("Личный кабинет.")
@@ -14,17 +13,16 @@ class TestPersonalAccount:
     def test_navigate_to_personal_account_success(self, browser):
         with allure.step("Инициализировать страницы."):
             account_page = PersonalAccountPage(browser)
-            base_page = BasePage(browser)
 
         with allure.step("Кликнуть по кнопке 'Личный кабинет'."):
             account_page.click_personal_account_button()
 
         with allure.step("Ожидать перехода на страницу личного кабинета."):
-            base_page.wait_for_url(LOGIN_PAGE_URL)
+            account_page.wait_for_url(LOGIN_PAGE_URL)
 
         with allure.step("Проверить текущий URL."):
-            assert base_page.get_current_url() == LOGIN_PAGE_URL, \
-                f"Ожидался URL: {LOGIN_PAGE_URL}, Фактический URL: {base_page.get_current_url()}"
+            assert account_page.get_current_url() == LOGIN_PAGE_URL, \
+                f"Ожидался URL: {LOGIN_PAGE_URL}, Фактический URL: {account_page.get_current_url()}"
 
     @allure.title("Успешный переход в историю заказов.")
     @allure.description("Тест для проверки перехода на страницу истории заказов.")
@@ -33,7 +31,6 @@ class TestPersonalAccount:
     def test_navigate_to_order_history_success(self, logged_in_user, browser):
         with allure.step("Инициализировать страницы."):
             account_page = PersonalAccountPage(browser)
-            base_page = BasePage(browser)
 
         with allure.step("Кликнуть по кнопке 'Личный кабинет'."):
             account_page.click_personal_account_button()
@@ -42,11 +39,11 @@ class TestPersonalAccount:
             account_page.click_order_history_button()
 
         with allure.step("Ожидать перехода на страницу истории заказов."):
-            base_page.wait_for_url(ACCOUNT_ORDER_HISTORY_URL)
+            account_page.wait_for_url(ACCOUNT_ORDER_HISTORY_URL)
 
         with allure.step("Проверить текущий URL."):
-            assert base_page.get_current_url() == ACCOUNT_ORDER_HISTORY_URL, \
-                f"Ожидался URL: {ACCOUNT_ORDER_HISTORY_URL}, Фактический URL: {base_page.get_current_url()}"
+            assert account_page.get_current_url() == ACCOUNT_ORDER_HISTORY_URL, \
+                f"Ожидался URL: {ACCOUNT_ORDER_HISTORY_URL}, Фактический URL: {account_page.get_current_url()}"
 
     @allure.title("Успешный выход из аккаунта.")
     @allure.description("Тест для проверки выхода из аккаунта по кнопке 'Выход' в личном кабинете.")
@@ -55,7 +52,6 @@ class TestPersonalAccount:
     def test_logout_from_account_success(self, logged_in_user, browser):
         with allure.step("Инициализировать страницы."):
             account_page = PersonalAccountPage(browser)
-            base_page = BasePage(browser)
 
         with allure.step("Кликнуть по кнопке 'Личный кабинет'."):
             account_page.click_personal_account_button()
@@ -64,8 +60,8 @@ class TestPersonalAccount:
             account_page.click_logout_button()
 
         with allure.step("Ожидать перехода на страницу входа."):
-            base_page.wait_for_url(LOGIN_PAGE_URL)
+            account_page.wait_for_url(LOGIN_PAGE_URL)
 
         with allure.step("Проверить текущий URL."):
-            assert base_page.get_current_url() == LOGIN_PAGE_URL, \
-                f"Ожидался URL: {LOGIN_PAGE_URL}, Фактический URL: {base_page.get_current_url()}"
+            assert account_page.get_current_url() == LOGIN_PAGE_URL, \
+                f"Ожидался URL: {LOGIN_PAGE_URL}, Фактический URL: {account_page.get_current_url()}"

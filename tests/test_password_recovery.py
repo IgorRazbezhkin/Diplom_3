@@ -2,7 +2,6 @@ import allure
 from urls import BASE_URL, LOGIN_PAGE_URL, RECOVERY_PAGE_URL, PASSWORD_RESET_PAGE_URL
 from pages.password_recovery_page import PasswordRecoveryPage
 from pages.personal_account_page import PersonalAccountPage
-from pages.base_pages import BasePage
 
 
 @allure.suite("Восстановление пароля.")
@@ -16,23 +15,22 @@ class TestPasswordRecovery:
         with allure.step("Инициализировать страницы."):
             recovery_page = PasswordRecoveryPage(browser)
             account_page = PersonalAccountPage(browser)
-            base_page = BasePage(browser)
 
         with allure.step("Кликнуть по кнопке 'Личный кабинет'."):
             account_page.click_personal_account_button()
 
         with allure.step("Ожидать перехода на страницу личного кабинета."):
-            base_page.wait_for_url(LOGIN_PAGE_URL)
+            account_page.wait_for_url(LOGIN_PAGE_URL)
 
         with allure.step("Кликнуть по ссылке 'Восстановить пароль'."):
             recovery_page.click_recover_password_link()
 
         with allure.step("Ожидание перехода на страницу восстановления пароля."):
-            base_page.wait_for_url(RECOVERY_PAGE_URL)
+            recovery_page.wait_for_url(RECOVERY_PAGE_URL)
 
         with allure.step("Проверить текущий URL."):
-            assert base_page.get_current_url() == RECOVERY_PAGE_URL, \
-                f"Ожидался URL: {RECOVERY_PAGE_URL}, Фактический URL: {base_page.get_current_url()}"
+            assert recovery_page.get_current_url() == RECOVERY_PAGE_URL, \
+                f"Ожидался URL: {RECOVERY_PAGE_URL}, Фактический URL: {recovery_page.get_current_url()}"
 
     @allure.title("Успешный переход на страницу сброса пароля по email.")
     @allure.description("Тест для проверки перехода на страницу сброса пароля по email.")
@@ -42,7 +40,6 @@ class TestPasswordRecovery:
         with allure.step("Инициализировать страницы."):
             recovery_page = PasswordRecoveryPage(browser)
             account_page = PersonalAccountPage(browser)
-            base_page = BasePage(browser)
 
         with allure.step("Получить email зарегистрированного пользователя."):
             email = registered_user['email']
@@ -60,11 +57,11 @@ class TestPasswordRecovery:
             recovery_page.click_restore_button()
 
         with allure.step("Ожидать перехода на страницу сброса пароля."):
-            base_page.wait_for_url(PASSWORD_RESET_PAGE_URL)
+            recovery_page.wait_for_url(PASSWORD_RESET_PAGE_URL)
 
         with allure.step("Проверить текущий URL."):
-            assert base_page.get_current_url() == PASSWORD_RESET_PAGE_URL, \
-                f"Ожидался URL: {PASSWORD_RESET_PAGE_URL}, Фактический URL: {base_page.get_current_url()}"
+            assert recovery_page.get_current_url() == PASSWORD_RESET_PAGE_URL, \
+                f"Ожидался URL: {PASSWORD_RESET_PAGE_URL}, Фактический URL: {recovery_page.get_current_url()}"
 
     @allure.title("Успешная активация подсветки поля 'пароль'.")
     @allure.description("Тест для проверки функционала подсветки поля 'пароль' при клике на него.")
