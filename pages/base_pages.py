@@ -39,8 +39,11 @@ class BasePage:
 
     @allure.step("Проверить видимость элемента.")
     def is_element_visible(self, locator):
-        element = self.wait.until(expected_conditions.visibility_of_element_located(locator))
-        return element is not None
+        try:
+            element = self.wait.until(expected_conditions.visibility_of_element_located(locator))
+            return element is not None
+        except:
+            return False
 
     @allure.step("Проверить отсутствие элемента.")
     def is_element_not_visible(self, locator):
@@ -49,3 +52,24 @@ class BasePage:
     @allure.step("Найти элемент.")
     def find_element(self, locator):
         return self.driver.find_element(*locator)
+
+    @allure.step("Получить текст элемента.")
+    def get_element_text(self, locator):
+        element = self.wait.until(expected_conditions.visibility_of_element_located(locator))
+        return element.text
+
+    @allure.step("Выполнить JavaScript.")
+    def execute_script(self, script, *args):
+        return self.driver.execute_script(script, *args)
+
+    @allure.step("Ожидать видимости элемента.")
+    def wait_for_element_visible(self, locator):
+        self.wait.until(expected_conditions.visibility_of_element_located(locator))
+
+    @allure.step("Ожидать кликабельности элемента.")
+    def wait_for_element_clickable(self, locator):
+        self.wait.until(expected_conditions.element_to_be_clickable(locator))
+
+    @allure.step("Получить атрибут элемента.")
+    def get_element_attribute(self, element, attribute):
+        return element.get_attribute(attribute)
