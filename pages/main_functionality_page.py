@@ -8,22 +8,18 @@ class MainFunctionalityPage(BasePage):
     def click_constructor(self):
         """Клик по кнопке 'Конструктор' в шапке сайта."""
         self.click_element(MainFunctionalityLocators.CONSTRUCTOR)
-        return self
 
     def click_order_feed(self):
         """Клик по кнопке 'Лента Заказов' в шапке сайта."""
         self.click_element(MainFunctionalityLocators.ORDER_FEED)
-        return self
 
     def click_place_order(self):
         """Клик по кнопке 'Оформить заказ'."""
         self.click_element(MainFunctionalityLocators.CREATE_ORDER_BTN)
-        return self
 
     def click_ingredient(self):
         """Открывает модальное окно с деталями ингредиента."""
         self.click_element(MainFunctionalityLocators.INGREDIENT)
-        return self
 
     def wait_for_ingredient_details_visible(self):
         """Ожидает появления модального окна с деталями ингредиента."""
@@ -35,7 +31,6 @@ class MainFunctionalityPage(BasePage):
     def close_ingredient_details(self):
         """Закрывает модальное окно с деталями ингредиента."""
         self.click_element(MainFunctionalityLocators.CROSS_BTN)
-        return self
 
     def wait_for_ingredient_details_hidden(self):
         """Ожидает скрытия модального окна с деталями ингредиента."""
@@ -55,8 +50,7 @@ class MainFunctionalityPage(BasePage):
         return self.is_element_not_visible(MainFunctionalityLocators.INGREDIENT_DETAILS_WINDOW)
 
     def add_ingredient_to_constructor(self):
-        """Добавляет ингредиент в конструктор бургеров через drag-and-drop. Returns:
-            MainFunctionalityPage: Возвращает экземпляр класса для цепочки вызовов"""
+        """Добавляет ингредиент в конструктор бургеров через drag-and-drop."""
         ingredient = self.wait.until(
             expected_conditions.visibility_of_element_located(MainFunctionalityLocators.INGREDIENT)
         )
@@ -64,7 +58,6 @@ class MainFunctionalityPage(BasePage):
             expected_conditions.visibility_of_element_located(MainFunctionalityLocators.FIELD_FOR_ADDING_INGREDIENTS)
         )
         self.drag_and_drop(ingredient, target_field)
-        return self
 
     def drag_and_drop(self, source_element, target_element):
         """Эмулирует перетаскивание элемента через JavaScript.
@@ -99,7 +92,7 @@ class MainFunctionalityPage(BasePage):
         self.wait.until(count_changed)
 
     def wait_for_order_placed(self):
-        """Ожидает появления модального окна с оформленного заказа."""
+        """Ожидает появления модального окна оформленного заказа."""
         self.wait.until(
             expected_conditions.visibility_of_element_located(
                 MainFunctionalityLocators.ORDER_FEED_WINDOW)

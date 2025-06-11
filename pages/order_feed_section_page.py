@@ -8,18 +8,18 @@ class OrderFeedSectionPage(BasePage):
 
     def click_order(self):
         """Клик по первому заказу в ленте заказов."""
-        return self.click_element(OrderFeedSectionLocators.ORDER)
+        self.click_element(OrderFeedSectionLocators.ORDER)
 
     def click_order_feed(self):
         """Клик по кнопке 'Лента Заказов'."""
-        return self.click_element(MainFunctionalityLocators.ORDER_FEED)
+        self.click_element(MainFunctionalityLocators.ORDER_FEED)
 
     def click_close_order(self):
         """Закрывает модальное окно с деталями заказа."""
         self.wait.until(
             expected_conditions.visibility_of_element_located(OrderFeedSectionLocators.ORDER_ID_WINDOW)
         )
-        return self.click_element(MainFunctionalityLocators.CROSS_BTN)
+        self.click_element(MainFunctionalityLocators.CROSS_BTN)
 
     def is_order_details_visible(self):
         """Проверяет видимость модального окна с деталями заказа. Returns:
