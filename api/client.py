@@ -56,6 +56,6 @@ class ApiClient:
             ApiClient.delete_user(login_data['accessToken'])
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 403:
-                print(f"Ошибка: Пользователь {email} уже удален или неверные учетные данные")
+                pass
             else:
                 raise
