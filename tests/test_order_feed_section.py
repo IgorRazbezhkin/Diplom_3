@@ -1,7 +1,6 @@
 import allure
 from urls import BASE_URL
 from pages.order_feed_section_page import OrderFeedSectionPage
-from pages.personal_account_page import PersonalAccountPage
 from pages.main_functionality_page import MainFunctionalityPage
 
 
@@ -33,7 +32,6 @@ class TestOrderFeedSection:
 
     def test_user_order_in_feed_order_success(self, logged_in_user, browser):
         with allure.step("Инициализировать страницы."):
-            account_page = PersonalAccountPage(browser)
             main_page = MainFunctionalityPage(browser)
             order_page = OrderFeedSectionPage(browser)
 
@@ -43,17 +41,11 @@ class TestOrderFeedSection:
         with allure.step("Кликнуть по кнопке 'Оформить заказ'."):
             main_page.click_place_order()
 
+        with allure.step("Получить номер заказа из модального окна."):
+            id_order = order_page.get_order_number_from_modal()
+
         with allure.step("Кликнуть по кнопке 'Закрыть' для закрытия модального окна оформленного заказа."):
-            order_page.click_close_order()
-
-        with allure.step("Кликнуть по кнопке 'Личный кабинет'."):
-            account_page.click_personal_account_button()
-
-        with allure.step("Кликнуть по кнопке 'История заказов'."):
-            account_page.click_order_history_button()
-
-        with allure.step("Получить номер созданного заказа из истории."):
-            id_order = order_page.get_order_number_history()
+            order_page.click_close_order_without_waiting()
 
         with allure.step("Кликнуть по кнопке 'Лента заказов'."):
             main_page.click_order_feed()
@@ -145,7 +137,6 @@ class TestOrderFeedSection:
 
     def test_order_number_appears_in_progress_section_success(self, logged_in_user, browser):
         with allure.step("Инициализировать страницы."):
-            account_page = PersonalAccountPage(browser)
             main_page = MainFunctionalityPage(browser)
             order_page = OrderFeedSectionPage(browser)
 
@@ -155,17 +146,11 @@ class TestOrderFeedSection:
         with allure.step("Кликнуть по кнопке 'Оформить заказ'."):
             main_page.click_place_order()
 
+        with allure.step("Получить номер заказа из модального окна."):
+            id_order = order_page.get_order_number_from_modal()
+
         with allure.step("Кликнуть по кнопке 'Закрыть' для закрытия модального окна оформленного заказа."):
-            order_page.click_close_order()
-
-        with allure.step("Кликнуть по кнопке 'Личный кабинет'."):
-            account_page.click_personal_account_button()
-
-        with allure.step("Кликнуть по кнопке 'История заказов'."):
-            account_page.click_order_history_button()
-
-        with allure.step("Получить номер созданного заказа из истории."):
-            id_order = order_page.get_order_number_history()
+            order_page.click_close_order_without_waiting()
 
         with allure.step("Кликнуть по кнопке 'Лента заказов'."):
             main_page.click_order_feed()

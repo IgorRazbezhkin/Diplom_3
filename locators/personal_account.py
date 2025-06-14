@@ -9,3 +9,4 @@ class PersonalAccountLocators:
     LOGIN_BTN = (By.CSS_SELECTOR, "form button")
     ORDER_HISTORY_BTN = (By.XPATH, ".//a[contains(@class, 'Account_link__2ETsJ') and text() = 'История заказов']")
     LOGOUT_BTN = (By.CSS_SELECTOR, "nav ul li:nth-child(3) button")
+    MODAL_OVERLAY = (By.CSS_SELECTOR, "div.Modal_modal_overlay__x2ZCr")

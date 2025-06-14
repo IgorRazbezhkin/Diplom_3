@@ -16,8 +16,11 @@ class OrderFeedSectionPage(BasePage):
 
     @allure.step("Закрыть модальное окно с деталями заказа.")
     def click_close_order(self):
-        self.wait_for_element_visible(OrderFeedSectionLocators.ORDER_ID_WINDOW)
         self.click_element(MainFunctionalityLocators.CROSS_BTN)
+
+    @allure.step("Закрыть модальное окно с деталями заказа без ожидания.")
+    def click_close_order_without_waiting(self):
+        self.quick_click_element(MainFunctionalityLocators.CROSS_BTN)
 
     @allure.step("Проверить видимость модального окна с деталями заказа.")
     def is_order_details_visible(self):
@@ -33,10 +36,10 @@ class OrderFeedSectionPage(BasePage):
         count_text = self.get_element_text(OrderFeedSectionLocators.COMPLETED_TODAY)
         return int(count_text)
 
-    @allure.step("Получить номер последнего заказа из истории.")
-    def get_order_number_history(self):
-        order_text = self.get_element_text(OrderFeedSectionLocators.ORDER_ID_HISTORY)
-        return str(order_text).lstrip('#')
+    @allure.step("Получить номер последнего заказа.")
+    def get_order_number_from_modal(self):
+        self.wait_for_order_number_update(OrderFeedSectionLocators.ORDER_ID_WINDOW)
+        return self.get_element_text(OrderFeedSectionLocators.ORDER_ID_WINDOW)
 
     @allure.step("Получить номер заказа из ленты заказов.")
     def get_order_number_in_order_feed(self):
